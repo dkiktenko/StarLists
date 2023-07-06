@@ -49,4 +49,9 @@
     <string name="password_hint">Password</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="sign_up">Sign Up</string>
+    <string name="registration">Registration</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">Register</string>
 </resources>

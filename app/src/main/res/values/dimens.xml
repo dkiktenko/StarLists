@@ -1,5 +1,5 @@
 <resources>
-      <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
     <dimen name="login_padding_top">100dp</dimen>
     <dimen name="login_padding_horizontal">25dp</dimen>
     <dimen name="login_title_margin_bottom">10sp</dimen>
@@ -7,4 +7,8 @@
     <dimen name="login_row_padding">5dp</dimen>
     <dimen name="login_field_margin_end">10dp</dimen>
     <dimen name="forgot_password_margin_bottom">10dp</dimen>
+    <dimen name="registration_padding_top">75sp</dimen>
+    <dimen name="registration_input_field_horizontal_margin">8sp</dimen>
+    <dimen name="registration_input_field_vertical_margin">7dp</dimen>
+    <dimen name="registration_margin_bottom">40sp</dimen>
 </resources>

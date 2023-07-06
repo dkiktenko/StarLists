@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.dkiktenko.starlists.MainActivity;
 import com.dkiktenko.starlists.R;
@@ -24,7 +25,11 @@ public class LoginFragment extends Fragment {
         // TODO: Implement showing of the "Forgot Password" fragment
     };
     private final View.OnClickListener signUpClickHandler = view -> {
-        // TODO: Implement showing of the "Sign Up" fragment
+        FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.container, new RegistrationFragment())
+                .hide(this)
+                .addToBackStack(RegistrationFragment.TAG)
+                .commit();
     };
 
     @Override

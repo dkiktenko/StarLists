@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.StarLists" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -6,6 +6,5 @@
         <item name="colorPrimary">#0A1E5B</item>
     </style>
 
-    <style name="Theme.StarLists" parent="Base.Theme.StarLists" >
-    </style>
+    <style name="Theme.StarLists" parent="Base.Theme.StarLists"></style>
 </resources>

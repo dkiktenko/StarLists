@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.Login">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/login_padding_horizontal"
+    android:paddingTop="@dimen/login_padding_top"
+    android:stretchColumns="1">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableRow android:padding="@dimen/login_row_padding">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/login_title_margin_bottom"
+            android:layout_span="2"
+            android:gravity="center"
+            android:text="@string/login_title"
+            android:textSize="@dimen/login_title_text_size"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginEnd="@dimen/login_field_margin_end"
+            android:text="@string/email" />
+
+        <EditText
+            android:id="@+id/email_input"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:autofillHints="@string/email_address"
+            android:hint="@string/email_address"
+            android:maxLines="1" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_marginEnd="@dimen/login_field_margin_end"
+            android:text="@string/password" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:autofillHints="@string/password_hint"
+            android:hint="@string/password_hint"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+    </TableRow>
+
+
+    <TableRow android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_span="2"
+            android:text="@string/login"
+            android:textStyle="bold" />
+    </TableRow>
+</TableLayout>

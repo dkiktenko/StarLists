@@ -1,3 +1,9 @@
 <resources>
       <dimen name="fab_margin">16dp</dimen>
-   </resources>
+    <dimen name="login_padding_top">100dp</dimen>
+    <dimen name="login_padding_horizontal">25dp</dimen>
+    <dimen name="login_title_margin_bottom">10sp</dimen>
+    <dimen name="login_title_text_size">25sp</dimen>
+    <dimen name="login_row_padding">5dp</dimen>
+    <dimen name="login_field_margin_end">10dp</dimen>
+</resources>

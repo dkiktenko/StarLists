@@ -6,4 +6,5 @@
     <dimen name="login_title_text_size">25sp</dimen>
     <dimen name="login_row_padding">5dp</dimen>
     <dimen name="login_field_margin_end">10dp</dimen>
+    <dimen name="forgot_password_margin_bottom">10dp</dimen>
 </resources>

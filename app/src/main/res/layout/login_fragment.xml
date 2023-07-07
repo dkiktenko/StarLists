@@ -1,31 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="@dimen/login_padding_horizontal"
-    android:paddingTop="@dimen/login_padding_top">
+    android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/login_title_margin_bottom"
-        android:gravity="center"
-        android:padding="@dimen/login_row_padding"
-        android:text="@string/login_title"
-        android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/login_padding_horizontal"
+        android:paddingTop="@dimen/login_padding_top">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/login_row_padding"
-        android:hint="@string/email_address">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1" />
+            android:layout_marginBottom="@dimen/login_title_margin_bottom"
+            android:gravity="center"
+            android:padding="@dimen/login_row_padding"
+            android:text="@string/login_title"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/login_row_padding"
+            android:hint="@string/email_address">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -52,21 +57,32 @@
         android:text="@string/login"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Button" />
 
-    <TextView
-        android:id="@+id/forgot_password_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/forgot_password_margin_bottom"
-        android:text="@string/forgot_password"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Button" />
+        <TextView
+            android:id="@+id/forgot_password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/forgot_password_margin_bottom"
+            android:text="@string/forgot_password"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button" />
 
-    <TextView
-        android:id="@+id/sign_up_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/sign_up"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Button" />
+        <TextView
+            android:id="@+id/sign_up_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/sign_up"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button" />
+    </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="@dimen/bug_icon_size"
+        android:layout_height="@dimen/bug_icon_size"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/bug_icon_margin"
+        android:adjustViewBounds="true"
+        android:background="#0000"
+        android:contentDescription="@string/report_a_bug"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bug" />
+</FrameLayout>

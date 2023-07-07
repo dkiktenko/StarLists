@@ -61,4 +61,5 @@
     <string name="password_field_must_contain_special_character_warning">Password must contain at least one (1) special character.\nExample: !@#$%^&amp;*()_+~`&lt;&gt;?:"{}[];\',./</string>
     <string name="password_field_must_meet_minimum_length_warning">Password must be at least eight (8) characters in length.</string>
     <string name="password_does_not_match">Passwords must match.</string>
+    <string name="report_a_bug">Report a bug</string>
 </resources>

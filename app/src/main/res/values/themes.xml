@@ -1,5 +1,9 @@
 <resources>
     <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="android:navigationBarColor">#0A1E5B</item>
+    </style>
+
     <style name="Base.Theme.StarLists" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->

@@ -11,4 +11,6 @@
     <dimen name="registration_input_field_horizontal_margin">8sp</dimen>
     <dimen name="registration_input_field_vertical_margin">7dp</dimen>
     <dimen name="registration_margin_bottom">40sp</dimen>
+    <dimen name="bug_icon_size">15dp</dimen>
+    <dimen name="bug_icon_margin">25dp</dimen>
 </resources>

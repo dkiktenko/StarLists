@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
+import com.dkiktenko.starlists.BugReport.ReportABugActivity;
 import com.dkiktenko.starlists.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -65,11 +66,17 @@ public class RegistrationFragment extends Fragment {
         confirmedPasswordField = ViewCompat.requireViewById(view, R.id.confirmed_password);
         confirmedPasswordFieldLayout = ViewCompat.requireViewById(view, R.id.password_confirmed_layout);
 
+        setupReportABug(view);
+
         setupFirstNameFieldValidation();
         setupLastNameFieldValidation();
         setupEmailFieldValidation();
         setupInitialPasswordFieldValidation();
         setupConfirmedPasswordFieldValidation();
+    }
+
+    private void setupReportABug(@NonNull View view) {
+        ViewCompat.requireViewById(view, R.id.report_a_bug_button).setOnClickListener(v -> ReportABugActivity.Show(requireActivity()));
     }
 
     private void setupFirstNameFieldValidation() {

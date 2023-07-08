@@ -73,4 +73,8 @@
     <string name="report_a_bug_instructions">Please provide a description of the issue you encountered including steps to replicate:</string>
     <!-- Checkbox instructions for user to be contacted, if authorized, after reporting a bug if more information is needed -->
     <string name="report_a_bug_contact_authorization">By checking this box, I authorize representatives from this application to contact me for additional information about this issue if necessary.</string>
+    <!-- Warning for when user attempts to submit an empty bug report -->
+    <string name="bug_report_empty_warning">No information provided to submit.</string>
+    <!-- Toast message for when a bug report was successfully submitted -->
+    <string name="bug_report_submitted">Thank you for submitting feedback!\nReport has been sent.</string>
 </resources>

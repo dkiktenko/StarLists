@@ -24,6 +24,7 @@
         android:text="@string/report_a_bug_instructions" />
 
     <EditText
+        android:id="@+id/bug_report"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scrollbars="vertical"
@@ -33,7 +34,7 @@
         android:layout_marginBottom="@dimen/report_a_bug_input_bottom_margin" />
 
     <CheckBox
-        android:id="@+id/checkbox_cheese"
+        android:id="@+id/contact_authorization_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/report_a_bug_contact_authorization" />

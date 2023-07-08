@@ -62,4 +62,15 @@
     <string name="password_field_must_meet_minimum_length_warning">Password must be at least eight (8) characters in length.</string>
     <string name="password_does_not_match">Passwords must match.</string>
     <string name="report_a_bug">Report a bug</string>
+
+    <!-- "Report a Bug" activity -->
+
+    <!-- Title label for the "Report a Bug" activity -->
+    <string name="report_a_bug_title">Report a Bug</string>
+    <!-- Label to report a bug -->
+    <string name="report">Report</string>
+    <!-- Instructions for reporting a bug -->
+    <string name="report_a_bug_instructions">Please provide a description of the issue you encountered including steps to replicate:</string>
+    <!-- Checkbox instructions for user to be contacted, if authorized, after reporting a bug if more information is needed -->
+    <string name="report_a_bug_contact_authorization">By checking this box, I authorize representatives from this application to contact me for additional information about this issue if necessary.</string>
 </resources>

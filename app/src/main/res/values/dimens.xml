@@ -13,4 +13,8 @@
     <dimen name="registration_margin_bottom">40sp</dimen>
     <dimen name="bug_icon_size">15dp</dimen>
     <dimen name="bug_icon_margin">25dp</dimen>
+    <dimen name="report_a_bug_padding_horizontal">25dp</dimen>
+    <dimen name="report_a_bug_padding_top">75sp</dimen>
+    <dimen name="report_a_bug_title_margin_bottom">10sp</dimen>
+    <dimen name="report_a_bug_input_bottom_margin">10dp</dimen>>
 </resources>

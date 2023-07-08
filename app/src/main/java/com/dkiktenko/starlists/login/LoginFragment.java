@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.dkiktenko.starlists.BugReport.ReportABugActivity;
 import com.dkiktenko.starlists.MainActivity;
 import com.dkiktenko.starlists.R;
 
@@ -47,6 +48,8 @@ public class LoginFragment extends Fragment {
             return;
         }
 
+        setupReportABug(view);
+
         setupLoginButton(view);
         setupForgotPasswordButton(view);
         setupSignUpButton(view);
@@ -56,6 +59,10 @@ public class LoginFragment extends Fragment {
     private boolean validateCredentials() {
         // TODO: Implement validation of credentials if user is already signed in
         return false;
+    }
+
+    private void setupReportABug(@NonNull View view) {
+        ViewCompat.requireViewById(view, R.id.report_a_bug_button).setOnClickListener(v -> ReportABugActivity.Show(requireActivity()));
     }
 
     private void setupLoginButton(@NonNull View view) {

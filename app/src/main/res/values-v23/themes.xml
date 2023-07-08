@@ -2,7 +2,7 @@
 
     <style name="Theme.StarLists" parent="Base.Theme.StarLists">
         <!-- Transparent system bars for edge-to-edge. -->
-        <item name="android:navigationBarColor">#0A1E5B</item>
+        <item name="android:navigationBarColor">?android:colorPrimary</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
     </style>

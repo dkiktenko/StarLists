@@ -1,5 +1,6 @@
 package com.dkiktenko.starlists.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,9 +16,11 @@ import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.dkiktenko.starlists.BugReport.ReportABugActivity;
+import com.dkiktenko.starlists.MainActivity;
 import com.dkiktenko.starlists.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
@@ -39,10 +43,15 @@ public class RegistrationFragment extends Fragment {
     private @NonNull TextInputLayout initialPasswordFieldLayout;
     private @NonNull TextInputEditText confirmedPasswordField;
     private @NonNull TextInputLayout confirmedPasswordFieldLayout;
+    private @NonNull CheckBox registrationCheckbox;
+
+    private @NonNull FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -65,6 +74,7 @@ public class RegistrationFragment extends Fragment {
         initialPasswordFieldLayout = ViewCompat.requireViewById(view, R.id.initial_password_layout);
         confirmedPasswordField = ViewCompat.requireViewById(view, R.id.confirmed_password);
         confirmedPasswordFieldLayout = ViewCompat.requireViewById(view, R.id.password_confirmed_layout);
+        registrationCheckbox = ViewCompat.requireViewById(view, R.id.registration_checkbox);
 
         setupReportABug(view);
 
@@ -73,6 +83,40 @@ public class RegistrationFragment extends Fragment {
         setupEmailFieldValidation();
         setupInitialPasswordFieldValidation();
         setupConfirmedPasswordFieldValidation();
+        setupRegisterButton(view);
+    }
+
+    private void setupRegisterButton(@NonNull View view) {
+        ViewCompat.requireViewById(view, R.id.register_button).setOnClickListener(v -> {
+
+            boolean nonEmailPasswordFieldsValid = validateNonEmailPasswordFields();
+            String email = validateEmail(emailAddressField.getText());
+            CharSequence password = validatePassword(initialPasswordField.getText());
+            CharSequence confirmedPassword = validateConfirmedPassword(confirmedPasswordField.getText());
+
+            if (!nonEmailPasswordFieldsValid || TextUtils.isEmpty(email) ||
+                    TextUtils.isEmpty(password) ||
+                    TextUtils.isEmpty(confirmedPassword)) {
+                // TODO: Error handling
+                return;
+            }
+
+            if (!registrationCheckbox.isChecked()) {
+                // TODO: Error handling
+                return;
+            }
+
+            mAuth.createUserWithEmailAndPassword(email, password.toString())
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(requireActivity(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            startActivity(intent);
+                        } else {
+                            // TODO: Error handling
+                        }
+                    });
+        });
     }
 
     private void setupReportABug(@NonNull View view) {
@@ -83,26 +127,20 @@ public class RegistrationFragment extends Fragment {
         firstNameField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable fieldText) {
-                if (fieldText != null) {
-                    if (!TextUtils.isEmpty(fieldText.toString())) {
-                        firstNameFieldLayout.setError(null);
-                        firstNameFieldLayout.setErrorEnabled(false);
-                        return;
-                    }
-                }
-
-                firstNameFieldLayout.setErrorEnabled(true);
-                firstNameFieldLayout.setError(getString(R.string.field_required));
+                validateName(fieldText, firstNameFieldLayout);
+            }
+        });
+        firstNameField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                validateName(firstNameField.getText(), firstNameFieldLayout);
             }
         });
     }
@@ -119,16 +157,12 @@ public class RegistrationFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable fieldText) {
-                if (fieldText != null) {
-                    if (!TextUtils.isEmpty(fieldText.toString())) {
-                        lastNameFieldLayout.setError(null);
-                        lastNameFieldLayout.setErrorEnabled(false);
-                        return;
-                    }
-                }
-
-                lastNameFieldLayout.setErrorEnabled(true);
-                lastNameFieldLayout.setError(getString(R.string.field_required));
+                validateName(fieldText, lastNameFieldLayout);
+            }
+        });
+        lastNameField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                validateName(lastNameField.getText(), lastNameFieldLayout);
             }
         });
     }
@@ -141,33 +175,16 @@ public class RegistrationFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence fieldText, int start, int before, int count) {
-                emailAddressFieldLayout.setErrorEnabled(true);
-                if (fieldText != null) {
-                    String fieldTextString = fieldText.toString();
-                    if (!TextUtils.isEmpty(fieldTextString)) {
-                        // check to confirm email format is correct (@ symbol is present and a period
-                        // is included within the domain name after the @ symbol with at least one
-                        // character separating the two)
-                        int atSymbolIndex = fieldTextString.indexOf("@");
-                        if (atSymbolIndex != -1) {
-                            int periodSymbolIndex = fieldTextString.indexOf(".", atSymbolIndex);
-                            if ((periodSymbolIndex != -1) &&
-                                    (periodSymbolIndex != (atSymbolIndex + 1))) {
-                                emailAddressFieldLayout.setError(null);
-                                emailAddressFieldLayout.setErrorEnabled(false);
-                                return;
-                            }
-                        }
-                        emailAddressFieldLayout.setError(getString(R.string.invalid_email_format_warning));
-                        return;
-                    }
-                }
-
-                emailAddressFieldLayout.setError(getString(R.string.field_required));
+                validateEmail(fieldText);
             }
 
             @Override
             public void afterTextChanged(Editable fieldText) {
+            }
+        });
+        emailAddressField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                validateEmail(emailAddressField.getText());
             }
         });
     }
@@ -180,30 +197,16 @@ public class RegistrationFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence fieldText, int start, int before, int count) {
-                initialPasswordFieldLayout.setErrorEnabled(true);
-                if ((fieldText != null) && (!TextUtils.isEmpty(fieldText))) {
-                    validateConfirmedPassword(confirmedPasswordField.getText());
-                    // check to password contains a letter, a digit, and a special character
-                    if (!letterPattern.matcher(fieldText).find()) {
-                        initialPasswordFieldLayout.setError(getString(R.string.password_field_must_contain_letter_warning));
-                    } else if (!digitPattern.matcher(fieldText).find()) {
-                        initialPasswordFieldLayout.setError(getString(R.string.password_field_must_contain_digit_warning));
-                    } else if (!specialCharacterPatter.matcher(fieldText).find()) {
-                        initialPasswordFieldLayout.setError(getString(R.string.password_field_must_contain_special_character_warning));
-                    } else if (fieldText.length() < MIN_PASSWORD_LENGTH_REQUIRED) {
-                        initialPasswordFieldLayout.setError(getString(R.string.password_field_must_meet_minimum_length_warning));
-                    } else {
-                        initialPasswordFieldLayout.setError(null);
-                        initialPasswordFieldLayout.setErrorEnabled(false);
-                    }
-                    return;
-                }
-
-                initialPasswordFieldLayout.setError(getString(R.string.field_required));
+                validatePassword(fieldText);
             }
 
             @Override
             public void afterTextChanged(Editable fieldText) {
+            }
+        });
+        initialPasswordField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                validatePassword(initialPasswordField.getText());
             }
         });
     }
@@ -223,11 +226,16 @@ public class RegistrationFragment extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
+        confirmedPasswordField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                validateConfirmedPassword(confirmedPasswordField.getText());
+            }
+        });
     }
 
-    private void validateConfirmedPassword(@Nullable CharSequence text) {
+    private @Nullable CharSequence validateConfirmedPassword(@Nullable CharSequence text) {
         confirmedPasswordFieldLayout.setErrorEnabled(true);
-        if ((text != null) && (!TextUtils.isEmpty(text))) {
+        if (!TextUtils.isEmpty(text)) {
             Editable initialPassword = initialPasswordField.getText();
             if ((initialPassword == null) ||
                     (!initialPassword.toString().contentEquals(text))) {
@@ -235,9 +243,90 @@ public class RegistrationFragment extends Fragment {
             } else {
                 confirmedPasswordFieldLayout.setError(null);
                 confirmedPasswordFieldLayout.setErrorEnabled(false);
+                return text;
             }
-            return;
+        } else {
+            confirmedPasswordFieldLayout.setError(getString(R.string.field_required));
         }
-        confirmedPasswordFieldLayout.setError(getString(R.string.field_required));
+        return null;
+    }
+
+    /**
+     * Validates that all fields that are not either the email or password are valid (i.e., have input)
+     *
+     * @return True, if all non-email and password fields are valid. Otherwise, false.
+     */
+    private boolean validateNonEmailPasswordFields() {
+        CharSequence firstName = validateName(firstNameField.getText(), firstNameFieldLayout);
+        CharSequence lastName = validateName(lastNameField.getText(), lastNameFieldLayout);
+
+        return ((firstName != null) && (lastName != null));
+    }
+
+    private @Nullable CharSequence validateName(@Nullable CharSequence enteredValue, @NonNull TextInputLayout fieldLayout) {
+        if (TextUtils.isEmpty(enteredValue)) {
+            fieldLayout.setErrorEnabled(true);
+            fieldLayout.setError(getString(R.string.field_required));
+            return null;
+        } else {
+            fieldLayout.setError(null);
+            fieldLayout.setErrorEnabled(false);
+            return enteredValue;
+        }
+    }
+
+    /**
+     * Validates the input within the email address field
+     *
+     * @return Email address as string if valid. Otherwise, null.
+     */
+    private @Nullable String validateEmail(@Nullable CharSequence input) {
+        emailAddressFieldLayout.setErrorEnabled(true);
+        if (!TextUtils.isEmpty(input)) {
+            // check to confirm email format is correct (@ symbol is present and a period
+            // is included within the domain name after the @ symbol with at least one
+            // character separating the two)
+            String emailInput = input.toString();
+            int atSymbolIndex = emailInput.indexOf("@");
+            if (atSymbolIndex != -1) {
+                int periodSymbolIndex = emailInput.indexOf(".", atSymbolIndex);
+                if ((periodSymbolIndex != -1) &&
+                        (periodSymbolIndex != (atSymbolIndex + 1))) {
+                    emailAddressFieldLayout.setError(null);
+                    emailAddressFieldLayout.setErrorEnabled(false);
+                    return emailInput;
+                }
+            }
+            emailAddressFieldLayout.setError(getString(R.string.invalid_email_format_warning));
+            return null;
+        }
+
+        emailAddressFieldLayout.setError(getString(R.string.field_required));
+        return null;
+    }
+
+    private @Nullable CharSequence validatePassword(@Nullable CharSequence input) {
+        initialPasswordFieldLayout.setErrorEnabled(true);
+        if (!TextUtils.isEmpty(input)) {
+            validateConfirmedPassword(confirmedPasswordField.getText());
+            // check to password contains a letter, a digit, and a special character
+            if (!letterPattern.matcher(input).find()) {
+                initialPasswordFieldLayout.setError(getString(R.string.password_field_must_contain_letter_warning));
+            } else if (!digitPattern.matcher(input).find()) {
+                initialPasswordFieldLayout.setError(getString(R.string.password_field_must_contain_digit_warning));
+            } else if (!specialCharacterPatter.matcher(input).find()) {
+                initialPasswordFieldLayout.setError(getString(R.string.password_field_must_contain_special_character_warning));
+            } else if (input.length() < MIN_PASSWORD_LENGTH_REQUIRED) {
+                initialPasswordFieldLayout.setError(getString(R.string.password_field_must_meet_minimum_length_warning));
+            } else {
+                initialPasswordFieldLayout.setError(null);
+                initialPasswordFieldLayout.setErrorEnabled(false);
+                return input;
+            }
+            return null;
+        }
+
+        initialPasswordFieldLayout.setError(getString(R.string.field_required));
+        return null;
     }
 }

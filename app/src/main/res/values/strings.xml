@@ -79,4 +79,5 @@
     <string name="bug_report_submitted">Thank you for submitting feedback!\nReport has been sent.</string>
     <string name="email_password_cannot_be_empty_warning">Email and/or password cannot be left empty</string>
     <string name="email_password_incorrect">Email and/or password is incorrect</string>
+    <string name="logout">Logout</string>
 </resources>

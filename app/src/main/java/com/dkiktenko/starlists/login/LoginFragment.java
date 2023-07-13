@@ -19,10 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.dkiktenko.starlists.BugReport.ReportABugActivity;
 import com.dkiktenko.starlists.MainActivity;
 import com.dkiktenko.starlists.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginFragment extends Fragment {
@@ -113,5 +110,6 @@ public class LoginFragment extends Fragment {
         Intent intent = new Intent(requireContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
+        requireActivity().finish();
     }
 }

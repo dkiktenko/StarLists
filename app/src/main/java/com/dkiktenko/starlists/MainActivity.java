@@ -1,18 +1,21 @@
 package com.dkiktenko.starlists;
 
+import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import androidx.core.view.WindowCompat;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import com.dkiktenko.starlists.databinding.ActivityMainBinding;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import com.dkiktenko.starlists.databinding.ActivityMainBinding;
+import com.dkiktenko.starlists.login.LoginRegistrationActivity;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +60,13 @@ private ActivityMainBinding binding;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, LoginRegistrationActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+            finish();
             return true;
         }
 

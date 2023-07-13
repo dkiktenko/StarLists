@@ -27,11 +27,11 @@
         android:id="@+id/bug_report"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:scrollbars="vertical"
+        android:layout_marginBottom="@dimen/report_a_bug_input_bottom_margin"
         android:layout_weight="1"
-        android:inputType="textMultiLine"
         android:autofillHints="@null"
-        android:layout_marginBottom="@dimen/report_a_bug_input_bottom_margin" />
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical" />
 
     <CheckBox
         android:id="@+id/contact_authorization_checkbox"

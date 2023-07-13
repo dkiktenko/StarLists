@@ -77,4 +77,6 @@
     <string name="bug_report_empty_warning">No information provided to submit.</string>
     <!-- Toast message for when a bug report was successfully submitted -->
     <string name="bug_report_submitted">Thank you for submitting feedback!\nReport has been sent.</string>
+    <string name="email_password_cannot_be_empty_warning">Email and/or password cannot be left empty</string>
+    <string name="email_password_incorrect">Email and/or password is incorrect</string>
 </resources>
